@@ -39,7 +39,8 @@ if not st.session_state.finished:
 # -------------------------
 if not st.session_state.finished:
     if st.button("▶ 次の結果を表示"):
-        score = random.randint(0, 5)
+        score = random.choices([0, 1, 2, 3, 4, 5],weights=[0.45, 0.25, 0.13, 0.10, 0.05, 0.02],k=1)[0]
+
 
         if st.session_state.top:
             st.session_state.scores_top[st.session_state.inning - 1] = score
