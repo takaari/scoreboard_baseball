@@ -18,6 +18,11 @@ if "scores_bottom" not in st.session_state:
     st.session_state.scores_bottom = [None] * 9
 if "finished" not in st.session_state:
     st.session_state.finished = False
+if "current_inning" not in st.session_state:
+    st.session_state.current_inning = 1
+if "current_half" not in st.session_state:
+    st.session_state.current_half = "top"
+
 
 # -------------------------
 # チーム名入力
@@ -37,23 +42,49 @@ if not st.session_state.finished:
 # -------------------------
 # 次へボタン
 # -------------------------
-if not st.session_state.finished:
-    if st.button("▶ 次の結果を表示"):
-        score = random.choices([0, 1, 2, 3, 4, 5],weights=[0.65, 0.14, 0.10, 0.07, 0.03, 0.01],k=1)[0]
+def animate_score():
+    box = st.empty()
 
+    # 数字ルーレット（2秒）
+    for _ in range(20):  # 0.1 × 20 = 2秒
+        box.markdown(
+            f"<div style='font-size:36px; font-weight:bold; text-align:center;'>"
+            f"{random.randint(0,5)}</div>",
+            unsafe_allow_html=True
+        )
+        time.sleep(0.1)
 
-        if st.session_state.top:
-            st.session_state.scores_top[st.session_state.inning - 1] = score
-            st.session_state.top = False
-        else:
-            st.session_state.scores_bottom[st.session_state.inning - 1] = score
-            st.session_state.top = True
-            st.session_state.inning += 1
+    # 最終得点（確率調整）
+    final_score = random.choices(
+        [0,1,2,3,4,5],
+        weights=[0.35,0.30,0.18,0.10,0.05,0.02],
+        k=1
+    )[0]
 
-        if st.session_state.inning > 9:
-            st.session_state.finished = True
+    box.markdown(
+        f"<div style='font-size:36px; font-weight:bold; text-align:center; color:#e63946;'>"
+        f"{final_score}</div>",
+        unsafe_allow_html=True
+    )
 
-        st.rerun()
+    time.sleep(0.5)
+    box.empty()
+
+    return final_score
+    
+if st.button("▶ 次のイニング"):
+    inning = st.session_state.current_inning - 1
+    half = st.session_state.current_half
+
+    score = animate_score()
+    st.session_state.scoreboard[half][inning] = score
+
+    # 表 → 裏 → 次の回
+    if half == "top":
+        st.session_state.current_half = "bottom"
+    else:
+        st.session_state.current_half = "top"
+        st.session_state.current_inning += 1
 
 # -------------------------
 # スコアボード表示
