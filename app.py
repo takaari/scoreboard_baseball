@@ -18,11 +18,6 @@ if "scores_bottom" not in st.session_state:
     st.session_state.scores_bottom = [None] * 9
 if "finished" not in st.session_state:
     st.session_state.finished = False
-if "current_inning" not in st.session_state:
-    st.session_state.current_inning = 1
-if "current_half" not in st.session_state:
-    st.session_state.current_half = "top"
-
 
 # -------------------------
 # チーム名入力
@@ -42,59 +37,48 @@ if not st.session_state.finished:
 # -------------------------
 # 次へボタン
 # -------------------------
-def animate_score():
-    box = st.empty()
+if not st.session_state.finished:
+    if st.button("▶ 次の結果を表示"):
+        score = random.choices([0, 1, 2, 3, 4, 5],weights=[0.65, 0.14, 0.10, 0.07, 0.03, 0.01],k=1)[0]
 
-    # 数字ルーレット（2秒）
-    for _ in range(20):  # 0.1 × 20 = 2秒
-        box.markdown(
-            f"<div style='font-size:36px; font-weight:bold; text-align:center;'>"
-            f"{random.randint(0,5)}</div>",
-            unsafe_allow_html=True
-        )
-        time.sleep(0.1)
 
-    # 最終得点（確率調整）
-    final_score = random.choices(
-        [0,1,2,3,4,5],
-        weights=[0.35,0.30,0.18,0.10,0.05,0.02],
-        k=1
-    )[0]
+        if st.session_state.top:
+            st.session_state.scores_top[st.session_state.inning - 1] = score
+            st.session_state.top = False
+        else:
+            st.session_state.scores_bottom[st.session_state.inning - 1] = score
+            st.session_state.top = True
+            st.session_state.inning += 1
 
-    box.markdown(
-        f"<div style='font-size:36px; font-weight:bold; text-align:center; color:#e63946;'>"
-        f"{final_score}</div>",
-        unsafe_allow_html=True
-    )
+        if st.session_state.inning > 9:
+            st.session_state.finished = True
 
-    time.sleep(0.5)
-    box.empty()
-
-    return final_score
-    
-if st.button("▶ 次のイニング"):
-    inning = st.session_state.current_inning - 1
-    half = st.session_state.current_half
-
-    score = animate_score()
-    st.session_state.scoreboard[half][inning] = score
-
-    # 表 → 裏 → 次の回
-    if half == "top":
-        st.session_state.current_half = "bottom"
-    else:
-        st.session_state.current_half = "top"
-        st.session_state.current_inning += 1
+        st.rerun()
 
 # -------------------------
 # スコアボード表示
 # -------------------------
-top_scores = st.session_state.scoreboard["top"]
-bottom_scores = st.session_state.scoreboard["bottom"]
+st.markdown("### スコアボード")
 
-top_total = sum(s if isinstance(s, int) else 0 for s in top_scores)
-bottom_total = sum(s if isinstance(s, int) else 0 for s in bottom_scores)
+html = "<table style='width:100%; border-collapse:collapse; text-align:center;'>"
+html += "<tr><th></th>" + "".join(f"<th>{i}</th>" for i in range(1,10)) + "<th>R</th></tr>"
 
+top_total = sum(s for s in st.session_state.scores_top if s is not None)
+bottom_total = sum(s for s in st.session_state.scores_bottom if s is not None)
+
+html += f"<tr><td>{team_top}</td>"
+for s in st.session_state.scores_top:
+    html += f"<td>{'' if s is None else s}</td>"
+html += f"<td><b>{top_total}</b></td></tr>"
+
+html += f"<tr><td>{team_bottom}</td>"
+for s in st.session_state.scores_bottom:
+    html += f"<td>{'' if s is None else s}</td>"
+html += f"<td><b>{bottom_total}</b></td></tr>"
+
+html += "</table>"
+
+st.markdown(html, unsafe_allow_html=True)
 
 # -------------------------
 # 勝敗判定
