@@ -89,27 +89,12 @@ if st.button("▶ 次のイニング"):
 # -------------------------
 # スコアボード表示
 # -------------------------
-st.markdown("### スコアボード")
+top_scores = st.session_state.scoreboard["top"]
+bottom_scores = st.session_state.scoreboard["bottom"]
 
-html = "<table style='width:100%; border-collapse:collapse; text-align:center;'>"
-html += "<tr><th></th>" + "".join(f"<th>{i}</th>" for i in range(1,10)) + "<th>R</th></tr>"
+top_total = sum(s if isinstance(s, int) else 0 for s in top_scores)
+bottom_total = sum(s if isinstance(s, int) else 0 for s in bottom_scores)
 
-top_total = sum(s for s in st.session_state.scores_top if s is not None)
-bottom_total = sum(s for s in st.session_state.scores_bottom if s is not None)
-
-html += f"<tr><td>{team_top}</td>"
-for s in st.session_state.scores_top:
-    html += f"<td>{'' if s is None else s}</td>"
-html += f"<td><b>{top_total}</b></td></tr>"
-
-html += f"<tr><td>{team_bottom}</td>"
-for s in st.session_state.scores_bottom:
-    html += f"<td>{'' if s is None else s}</td>"
-html += f"<td><b>{bottom_total}</b></td></tr>"
-
-html += "</table>"
-
-st.markdown(html, unsafe_allow_html=True)
 
 # -------------------------
 # 勝敗判定
