@@ -1,7 +1,11 @@
 import streamlit as st
 import random
 
-st.set_page_config(page_title="⚾ シンプル野球ゲーム")
+st.set_page_config(
+    page_title="⚾ シンプル野球ゲーム",
+    layout="wide"   # ← これが重要
+)
+
 
 st.markdown("<h2 style='text-align:center;'>⚾ 野球スコアゲーム</h2>", unsafe_allow_html=True)
 
@@ -18,21 +22,42 @@ if "scores_bottom" not in st.session_state:
     st.session_state.scores_bottom = [None] * 9
 if "finished" not in st.session_state:
     st.session_state.finished = False
+if "ready" not in st.session_state:
+    st.session_state.ready = False
 
 # -------------------------
 # チーム名入力
 # -------------------------
-team_top = st.text_input("先攻チーム名（表）", value="チームA")
-team_bottom = st.text_input("後攻チーム名（裏）", value="チームB")
+if not st.session_state.ready:
+    st.subheader("チーム名を入力してください")
 
-st.divider()
+    team_top = st.text_input("先攻チーム名（表）", value="チームA")
+    team_bottom = st.text_input("後攻チーム名（裏）", value="チームB")
+
+    if st.button("▶ ゲーム開始"):
+        st.session_state.team_top = team_top
+        st.session_state.team_bottom = team_bottom
+        st.session_state.ready = True
+        st.rerun()
+
+    st.stop()  # ← ここで以降の表示を止める
+
+
 
 # -------------------------
 # 現在の回表示
 # -------------------------
-if not st.session_state.finished:
-    half = "表" if st.session_state.top else "裏"
-    st.subheader(f"{st.session_state.inning}回 {half}")
+col1, col2 = st.columns([3, 2])
+
+with col1:
+    if not st.session_state.finished:
+        half = "表" if st.session_state.top else "裏"
+        st.subheader(f"{st.session_state.inning}回 {half}")
+
+with col2:
+    if not st.session_state.finished:
+        st.button("▶ 次の結果を表示")
+
 
 # -------------------------
 # 次へボタン
