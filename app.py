@@ -68,7 +68,7 @@ with col2:
 
 if st.session_state.top:
     # 表の攻撃
-    st.session_state.scores_top[st.session_state.inning - 1] = score
+    st.session_state.scores_top[st.session_state.inning - 1] = scores_top
     st.session_state.top = False
 
     # ★ 9回表終了時の特別判定
