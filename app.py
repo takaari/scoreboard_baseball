@@ -11,20 +11,25 @@ st.markdown("<h2 style='text-align:center;'>スコアボード⚾ベースボー
 
 st.markdown("""
 <style>
-/* ===== 画面全体 ===== */
-.stApp {
-    background-color: #0b3d2e;  /* 深緑 */
-    color: white;
+
+/* ===== 背景（最重要） ===== */
+html, body, [data-testid="stAppViewContainer"] {
+    background-color: #0b3d2e !important;  /* 深緑 */
 }
 
-/* 見出し */
+/* サイドバーも同色に */
+[data-testid="stSidebar"] {
+    background-color: #0b3d2e;
+}
+
+/* ===== 全テキスト ===== */
+* {
+    color: white !important;
+}
+
+/* ===== 見出し ===== */
 h1, h2, h3, h4 {
-    color: white;
-}
-
-/* テキスト */
-p, div, span {
-    color: white;
+    color: white !important;
 }
 
 /* ===== スコアボード ===== */
@@ -36,26 +41,28 @@ table {
 }
 
 th, td {
-    border: 2px solid white;
+    border: 2px solid white !important;
     padding: 6px 10px;
 }
 
 th {
-    background-color: rgba(255,255,255,0.15);
+    background-color: rgba(255,255,255,0.2);
 }
 
-/* ボタン */
-button {
-    background-color: #145a32;
-    color: white;
-    border: 2px solid white;
+/* ===== ボタン ===== */
+button[kind="primary"], button {
+    background-color: #145a32 !important;
+    color: white !important;
+    border: 2px solid white !important;
 }
 
 button:hover {
-    background-color: #1e8449;
+    background-color: #1e8449 !important;
 }
+
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # -------------------------
