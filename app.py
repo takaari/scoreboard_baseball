@@ -62,8 +62,8 @@ with col2:
 # -------------------------
 # 次へボタン
 # -------------------------
-if not st.session_state.finished:
-    if st.button("▶ 次の結果を表示"):
+#if not st.session_state.finished:
+#    if st.button("▶ 次の結果を表示"):
         score = random.choices([0, 1, 2, 3, 4, 5],weights=[0.65, 0.14, 0.10, 0.07, 0.03, 0.01],k=1)[0]
 
 
