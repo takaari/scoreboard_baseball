@@ -9,6 +9,55 @@ st.set_page_config(
 
 st.markdown("<h2 style='text-align:center;'>スコアボード⚾ベースボール</h2>", unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+/* ===== 画面全体 ===== */
+.stApp {
+    background-color: #0b3d2e;  /* 深緑 */
+    color: white;
+}
+
+/* 見出し */
+h1, h2, h3, h4 {
+    color: white;
+}
+
+/* テキスト */
+p, div, span {
+    color: white;
+}
+
+/* ===== スコアボード ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    color: white;
+}
+
+th, td {
+    border: 2px solid white;
+    padding: 6px 10px;
+}
+
+th {
+    background-color: rgba(255,255,255,0.15);
+}
+
+/* ボタン */
+button {
+    background-color: #145a32;
+    color: white;
+    border: 2px solid white;
+}
+
+button:hover {
+    background-color: #1e8449;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
 # -------------------------
 # セッション初期化
 # -------------------------
