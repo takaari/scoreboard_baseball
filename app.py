@@ -2,12 +2,12 @@ import streamlit as st
 import random
 
 st.set_page_config(
-    page_title="⚾ シンプル野球ゲーム",
+    page_title="スコアボード⚾ベースボール",
     layout="wide"   # ← これが重要
 )
 
 
-st.markdown("<h2 style='text-align:center;'>⚾ 野球スコアゲーム</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align:center;'>スコアボード⚾ベースボール</h2>", unsafe_allow_html=True)
 
 # -------------------------
 # セッション初期化
