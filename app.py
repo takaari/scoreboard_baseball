@@ -66,18 +66,28 @@ with col2:
                 k=1
             )[0]
 
-            if st.session_state.top:
-                st.session_state.scores_top[st.session_state.inning - 1] = score
-                st.session_state.top = False
-            else:
-                st.session_state.scores_bottom[st.session_state.inning - 1] = score
-                st.session_state.top = True
-                st.session_state.inning += 1
+if st.session_state.top:
+    # 表の攻撃
+    st.session_state.scores_top[st.session_state.inning - 1] = score
+    st.session_state.top = False
 
-            if st.session_state.inning > 9:
-                st.session_state.finished = True
+    # ★ 9回表終了時の特別判定
+    if st.session_state.inning == 9:
+        top_total = sum(s for s in st.session_state.scores_top if s is not None)
+        bottom_total = sum(s for s in st.session_state.scores_bottom if isinstance(s, int))
 
+        if bottom_total > top_total:
+            # 後攻の勝利確定 → 9回裏なし
+            st.session_state.scores_bottom[8] = "X"
+            st.session_state.finished = True
             st.rerun()
+
+else:
+    # 裏の攻撃
+    st.session_state.scores_bottom[st.session_state.inning - 1] = score
+    st.session_state.top = True
+    st.session_state.inning += 1
+
 
 
 # -------------------------
