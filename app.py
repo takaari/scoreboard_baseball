@@ -106,8 +106,9 @@ st.markdown("### スコアボード")
 html = "<table style='width:100%; border-collapse:collapse; text-align:center;'>"
 html += "<tr><th></th>" + "".join(f"<th>{i}</th>" for i in range(1,10)) + "<th>R</th></tr>"
 
-top_total = sum(s for s in st.session_state.scores_top if s is not None)
-bottom_total = sum(s for s in st.session_state.scores_bottom if s is not None)
+top_total = sum(s for s in st.session_state.scores_top if isinstance(s, int))
+bottom_total = sum(s for s in st.session_state.scores_bottom if isinstance(s, int))
+
 
 html += f"<tr><td>{team_top}</td>"
 for s in st.session_state.scores_top:
