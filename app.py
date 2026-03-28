@@ -2,22 +2,7 @@ import streamlit as st
 import random
 import base64
 
-def play_sound_autoplay(file_path):
-    import uuid
 
-    with open(file_path, "rb") as f:
-        data = f.read()
-        b64 = base64.b64encode(data).decode()
-
-    unique_id = uuid.uuid4()
-
-    audio_html = f"""
-    <audio autoplay id="{unique_id}">
-        <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-    </audio>
-    """
-
-    st.markdown(audio_html, unsafe_allow_html=True)
 
 #def play_bgm_loop(file_path):
 #    with open(file_path, "rb") as f:
@@ -99,7 +84,22 @@ button:hover {
 </style>
 """, unsafe_allow_html=True)
 
+def play_sound_autoplay(file_path):
+    import uuid
 
+    with open(file_path, "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
+
+    unique_id = uuid.uuid4()
+
+    audio_html = f"""
+    <audio autoplay id="{unique_id}">
+        <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+    </audio>
+    """
+
+    st.markdown(audio_html, unsafe_allow_html=True)
 
 # -------------------------
 # セッション初期化
