@@ -1,7 +1,7 @@
 import streamlit as st
 import random
 import base64
-
+def play_sound_autoplay():
 def play_bgm_loop(file_path):
     with open(file_path, "rb") as f:
         data = f.read()
