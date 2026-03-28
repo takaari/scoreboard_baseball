@@ -107,10 +107,7 @@ team_bottom = st.session_state.team_bottom
 # 効果音（カキーン）
 # -------------------------
 if st.session_state.get("play_hit_sound"):
-    with open("sounds/batto.mp3", "rb") as f:
-        st.audio(f.read(), format="audio/mp3")
-
-    # 一回だけ鳴らす
+    play_sound_autoplay("sounds/batto.mp3")
     st.session_state.play_hit_sound = False
 
 # -------------------------
