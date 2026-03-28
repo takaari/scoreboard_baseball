@@ -120,6 +120,10 @@ if "play_hit_sound" not in st.session_state:
     st.session_state.play_hit_sound = False
 if "bgm_started" not in st.session_state:
     st.session_state.bgm_started = False
+if "bgm_playing" not in st.session_state:
+    st.session_state.bgm_playing = False
+if "bgm_restart" not in st.session_state:
+    st.session_state.bgm_restart = False
 
 # -------------------------
 # チーム名入力
@@ -158,6 +162,12 @@ if st.session_state.get("bgm_playing") and not st.session_state.get("bgm_started
 if st.session_state.get("play_hit_sound"):
     play_sound_autoplay("sounds/batto.mp3")
     st.session_state.play_hit_sound = False
+# -------------------------
+# BGM再開トリガー
+# -------------------------
+if st.session_state.get("bgm_restart"):
+    st.session_state.bgm_playing = True
+    st.session_state.bgm_restart = False
 
 # -------------------------
 # 現在の回表示
@@ -182,6 +192,9 @@ with col2:
             # 👇 ここ追加（先にフラグ立てる）
             if score > 0:
                 st.session_state.play_hit_sound = True
+                
+                st.session_state.bgm_playing = False
+                st.session_state.bgm_restart = True
 
             if st.session_state.top:
                 # 表の攻撃
