@@ -85,6 +85,7 @@ button:hover {
 """, unsafe_allow_html=True)
 
 def play_sound_autoplay(file_path):
+    import base64
     import uuid
 
     with open(file_path, "rb") as f:
@@ -94,7 +95,7 @@ def play_sound_autoplay(file_path):
     unique_id = uuid.uuid4()
 
     audio_html = f"""
-    <audio autoplay id="{unique_id}">
+    <audio autoplay id="{unique_id}" style="display:none;">
         <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
     </audio>
     """
