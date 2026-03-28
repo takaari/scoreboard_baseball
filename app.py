@@ -13,7 +13,7 @@ def play_sound_autoplay(file_path):
     unique_id = uuid.uuid4()
 
     audio_html = f"""
-    <audio autoplay id="{unique_id}" style="display:none;">
+    <audio autoplay id="{unique_id}" style="position:fixed; bottom:0; left:0; width:0; height:0; opacity:0;">
         <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
     </audio>
     """
