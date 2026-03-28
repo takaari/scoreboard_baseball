@@ -15,7 +15,17 @@ def play_sound_autoplay(file_path):
 
     st.markdown(audio_html, unsafe_allow_html=True)
 
+def play_bgm_loop(file_path):
+    with open(file_path, "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
 
+    audio_html = f"""
+    <audio autoplay loop id="bgm">
+        <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+    </audio>
+    """
+    st.markdown(audio_html, unsafe_allow_html=True)
 
 
 
@@ -104,8 +114,8 @@ if "ready" not in st.session_state:
     st.session_state.ready = False
 if "play_hit_sound" not in st.session_state:
     st.session_state.play_hit_sound = False
-#if "bgm_playing" not in st.session_state:
-#    st.session_state.bgm_playing = False
+if "bgm_started" not in st.session_state:
+    st.session_state.bgm_started = False
 
 # -------------------------
 # チーム名入力
@@ -131,8 +141,12 @@ if not st.session_state.ready:
 team_top = st.session_state.team_top
 team_bottom = st.session_state.team_bottom
 
-#if st.session_state.get("bgm_playing") and not st.session_state.finished:
-#    play_bgm_loop("sounds/cheering_pep_squad.mp3")
+# -------------------------
+# BGM（試合中ずっと）
+# -------------------------
+if st.session_state.get("bgm_playing") and not st.session_state.get("bgm_started"):
+    play_bgm_loop("sounds/cheering_pep_squad.mp3")
+    st.session_state.bgm_started = True
 
 # -------------------------
 # 効果音（カキーン）
