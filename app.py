@@ -1,7 +1,7 @@
 import streamlit as st
 import random
 import base64
-def play_sound_autoplay():
+
 def play_bgm_loop(file_path):
     with open(file_path, "rb") as f:
         data = f.read()
@@ -15,6 +15,20 @@ def play_bgm_loop(file_path):
 
     st.markdown(audio_html, unsafe_allow_html=True)
 
+def play_sound_autoplay():
+    with open(file_path, "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
+
+    audio_html = f"""
+    <audio autoplay loop>
+        <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+    </audio>
+    """
+
+    st.markdown(audio_html, unsafe_allow_html=True)
+
+
 st.set_page_config(
     page_title="スコアボード⚾ベースボール",
     layout="wide"   # ← これが重要
@@ -23,6 +37,10 @@ st.set_page_config(
 
 st.markdown("<h2 style='text-align:center;'>スコアボード⚾ベースボール</h2>", unsafe_allow_html=True)
 
+
+
+
+    
 st.markdown("""
 <style>
 
