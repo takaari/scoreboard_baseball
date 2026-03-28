@@ -118,8 +118,8 @@ if "ready" not in st.session_state:
     st.session_state.ready = False
 if "play_hit_sound" not in st.session_state:
     st.session_state.play_hit_sound = False
-if "bgm_started" not in st.session_state:
-    st.session_state.bgm_started = False
+#if "bgm_started" not in st.session_state:
+#    st.session_state.bgm_started = False
 if "bgm_playing" not in st.session_state:
     st.session_state.bgm_playing = False
 if "bgm_restart" not in st.session_state:
