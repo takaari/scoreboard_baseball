@@ -131,8 +131,8 @@ if not st.session_state.ready:
 team_top = st.session_state.team_top
 team_bottom = st.session_state.team_bottom
 
-if st.session_state.get("bgm_playing") and not st.session_state.finished:
-    play_bgm_loop("sounds/cheering_pep_squad.mp3")
+#if st.session_state.get("bgm_playing") and not st.session_state.finished:
+#    play_bgm_loop("sounds/cheering_pep_squad.mp3")
 
 # -------------------------
 # 効果音（カキーン）
