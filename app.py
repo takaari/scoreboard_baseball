@@ -122,6 +122,10 @@ with col2:
                 k=1
             )[0]
 
+            # 👇 ここ追加（先にフラグ立てる）
+            if score > 0:
+                st.session_state.play_hit_sound = True
+
             if st.session_state.top:
                 # 表の攻撃
                 st.session_state.scores_top[st.session_state.inning - 1] = score
@@ -180,6 +184,16 @@ html += "</table>"
 
 st.markdown(html, unsafe_allow_html=True)
 
+# -------------------------
+# 効果音（カキーン）
+# -------------------------
+if st.session_state.get("play_hit_sound"):
+    with open("sounds/batto.mp3", "rb") as f:
+        st.audio(f.read(), format="audio/mp3")
+
+    # 一回だけ鳴らす
+    st.session_state.play_hit_sound = False
+    
 # -------------------------
 # 勝敗判定
 # -------------------------
