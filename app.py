@@ -97,12 +97,12 @@ button:hover {
     background-color: #1e8449 !important;
 }
 /* ===== 入力欄（テキストボックス） ===== */
-div[data-baseweb="input"] input {
-    background-color: #d5f5e3 !important;  /* 薄い緑 */
-    color: #0b3d2e !important;             /* 濃い緑文字 */
+input[type="text"] {
+    background-color: #d5f5e3 !important;
+    color: #0b3d2e !important;  /* 深緑にすると統一感UP */
     border: 2px solid white !important;
     border-radius: 8px;
-    padding: 6px;
+    padding: 8px;
 }
 
 </style>
