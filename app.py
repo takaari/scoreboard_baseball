@@ -18,7 +18,7 @@ def play_sound_autoplay(file_path):
     """
 
     st.markdown(audio_html, unsafe_allow_html=True)
-
+"""
 def play_bgm_loop(file_path):
     with open(file_path, "rb") as f:
         data = f.read()
@@ -30,7 +30,7 @@ def play_bgm_loop(file_path):
     </audio>
     """
     st.markdown(audio_html, unsafe_allow_html=True)
-
+"""
 
 
 st.set_page_config(
@@ -120,10 +120,10 @@ if "play_hit_sound" not in st.session_state:
     st.session_state.play_hit_sound = False
 #if "bgm_started" not in st.session_state:
 #    st.session_state.bgm_started = False
-if "bgm_playing" not in st.session_state:
-    st.session_state.bgm_playing = False
-if "bgm_restart" not in st.session_state:
-    st.session_state.bgm_restart = False
+#if "bgm_playing" not in st.session_state:
+#    st.session_state.bgm_playing = False
+#if "bgm_restart" not in st.session_state:
+#    st.session_state.bgm_restart = False
 
 # -------------------------
 # チーム名入力
@@ -140,9 +140,9 @@ if not st.session_state.ready:
         st.session_state.ready = True
 
         # 👇 BGMスタート
-        st.session_state.bgm_playing = True
+#        st.session_state.bgm_playing = True
 
-        st.rerun()
+#        st.rerun()
 
     st.stop()  # ← ここで以降の表示を止める
     
@@ -152,9 +152,9 @@ team_bottom = st.session_state.team_bottom
 # -------------------------
 # BGM（試合中ずっと）
 # -------------------------
-if st.session_state.get("bgm_playing") and not st.session_state.get("bgm_started"):
-    play_bgm_loop("sounds/cheering_pep_squad.mp3")
-    st.session_state.bgm_started = True
+#if st.session_state.get("bgm_playing") and not st.session_state.get("bgm_started"):
+#    play_bgm_loop("sounds/cheering_pep_squad.mp3")
+#    st.session_state.bgm_started = True
 
 # -------------------------
 # 効果音（カキーン）
@@ -165,9 +165,9 @@ if st.session_state.get("play_hit_sound"):
 # -------------------------
 # BGM再開トリガー
 # -------------------------
-if st.session_state.get("bgm_restart"):
-    st.session_state.bgm_playing = True
-    st.session_state.bgm_restart = False
+#if st.session_state.get("bgm_restart"):
+#    st.session_state.bgm_playing = True
+#    st.session_state.bgm_restart = False
 
 # -------------------------
 # 現在の回表示
