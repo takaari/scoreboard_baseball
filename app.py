@@ -2,13 +2,13 @@ import streamlit as st
 import random
 import base64
 
-def play_sound_autoplay(file_path):
+def play_bgm_loop(file_path):
     with open(file_path, "rb") as f:
         data = f.read()
         b64 = base64.b64encode(data).decode()
 
     audio_html = f"""
-    <audio autoplay>
+    <audio autoplay loop>
         <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
     </audio>
     """
@@ -96,6 +96,8 @@ if "ready" not in st.session_state:
     st.session_state.ready = False
 if "play_hit_sound" not in st.session_state:
     st.session_state.play_hit_sound = False
+if "bgm_playing" not in st.session_state:
+    st.session_state.bgm_playing = False
 
 # -------------------------
 # チーム名入力
@@ -110,12 +112,19 @@ if not st.session_state.ready:
         st.session_state.team_top = team_top
         st.session_state.team_bottom = team_bottom
         st.session_state.ready = True
+
+        # 👇 BGMスタート
+        st.session_state.bgm_playing = True
+
         st.rerun()
 
     st.stop()  # ← ここで以降の表示を止める
     
 team_top = st.session_state.team_top
 team_bottom = st.session_state.team_bottom
+
+if st.session_state.get("bgm_playing") and not st.session_state.finished:
+    play_bgm_loop("sounds/cheering_pep_squad.mp3")
 
 # -------------------------
 # 効果音（カキーン）
