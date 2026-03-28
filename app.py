@@ -80,6 +80,8 @@ if "finished" not in st.session_state:
     st.session_state.finished = False
 if "ready" not in st.session_state:
     st.session_state.ready = False
+if "play_hit_sound" not in st.session_state:
+    st.session_state.play_hit_sound = False
 
 # -------------------------
 # チーム名入力
@@ -101,6 +103,15 @@ if not st.session_state.ready:
 team_top = st.session_state.team_top
 team_bottom = st.session_state.team_bottom
 
+# -------------------------
+# 効果音（カキーン）
+# -------------------------
+if st.session_state.get("play_hit_sound"):
+    with open("sounds/batto.mp3", "rb") as f:
+        st.audio(f.read(), format="audio/mp3")
+
+    # 一回だけ鳴らす
+    st.session_state.play_hit_sound = False
 
 # -------------------------
 # 現在の回表示
@@ -184,15 +195,7 @@ html += "</table>"
 
 st.markdown(html, unsafe_allow_html=True)
 
-# -------------------------
-# 効果音（カキーン）
-# -------------------------
-if st.session_state.get("play_hit_sound"):
-    with open("sounds/batto.mp3", "rb") as f:
-        st.audio(f.read(), format="audio/mp3")
 
-    # 一回だけ鳴らす
-    st.session_state.play_hit_sound = False
     
 # -------------------------
 # 勝敗判定
